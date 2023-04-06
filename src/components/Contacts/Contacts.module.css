@@ -1,0 +1,43 @@
+.formSection {
+  margin-left: 20px;
+  margin-top: 20px;
+  border: 1px solid rgb(153, 126, 220);
+  border-radius: 10px;
+  max-width: 300px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 30px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.header {
+  font-size: 25px;
+  color: rgb(153, 126, 220);
+}
+
+.input {
+  height: 40px;
+  width: 280px;
+  margin-bottom: 20px;
+}
+
+.contact {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.item {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  background-color: rgb(153, 126, 220);
+  color: aliceblue;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
