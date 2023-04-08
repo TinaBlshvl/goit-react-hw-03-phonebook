@@ -5,11 +5,24 @@ import { Contscts } from 'components/Contacts/Contacts';
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+const KEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    // console.log('App didMount');
+
+    const contactsLocal = localStorage.getItem(KEY);
+    const parsedContacts = JSON.parse(contactsLocal);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts.contacts });
+    }
+  }
 
   formSubmit = ({ name, number }) => {
     const checkedName = this.state.contacts.find(elem => {
@@ -27,25 +40,55 @@ export class App extends Component {
       number,
     };
 
+    // this.setState(prevState => {
+    //   const ContactsAll = [...prevState.contacts];
+    //   ContactsAll.push(newContact);
+    //   return {
+    //     name,
+    //     number,
+    //     contacts: [...ContactsAll],
+    //   };
+
     this.setState(prevState => {
-      const ContactsAll = [...prevState.contacts];
-      ContactsAll.push(newContact);
-      return {
-        name,
-        number,
-        contacts: [...ContactsAll],
+      const ContactsObj = [...prevState.contacts, newContact];
+
+      const newContacts = {
+        contacts: [...ContactsObj],
       };
+
+      const contactsArrayJson = JSON.stringify(newContacts);
+
+      localStorage.setItem(KEY, contactsArrayJson);
+
+      return newContacts;
     });
   };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log('App component');
+
+  //   if (this.state.contacts !== prevState.contacts) {
+  //     console.log('Обновилось поле');
+
+  //     localStorage.setItem('KEY', JSON.stringify(this.state.contacts));
+  //   }
+  // }
 
   deleteItem = id => {
     this.setState(({ contacts }) => {
       const newContacts = [...contacts];
       const index = newContacts.findIndex(elem => elem.id === id);
       newContacts.splice(index, 1);
-      return {
+
+      const result = {
         contacts: [...newContacts],
       };
+
+      const contactsJson = JSON.stringify(result);
+
+      localStorage.setItem(KEY, contactsJson);
+
+      return result;
     });
   };
 
